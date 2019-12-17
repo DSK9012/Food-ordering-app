@@ -47,17 +47,7 @@ class FoodItems extends React.Component{
 
   render(){
 
-    /*const cart=this.state.selectedItems.map((item)=>{
-         
-         
-            return(
-                <React.Fragment>
-        <p>{item.id}x {item.itemname}</p>
-                </React.Fragment>
-            );
-         
-    });
-*/
+   
     const Items=this.props.items.items.map((fooditems)=>{
         
        
