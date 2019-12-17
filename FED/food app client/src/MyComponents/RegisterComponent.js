@@ -3,11 +3,13 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
 import {Button} from 'reactstrap';
 import {Link} from 'react-router-dom';
 
+
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
 const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 const validPassword=(val)=>/^[A-Z]+[a-z]+[!@#$&%0-9]/i.test(val);
+
 
 class Login extends React.Component{
     

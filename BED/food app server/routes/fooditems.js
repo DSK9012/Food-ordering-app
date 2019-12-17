@@ -1,5 +1,6 @@
 const express=require("express");
 const router=express.Router();
+const auth=require("../middleware/authToken");
 
 const Item=require("../models/foodItemModel");
 
@@ -16,7 +17,7 @@ router.get("/fooditems", async (req, res)=>{
 });
 
 //Getting specific items
-router.get("/fooditems/:availablefor", async (req, res)=>{
+router.get("/fooditems/:availablefor", auth, async (req, res)=>{
     try{
         let items=await Item.find({availablefor:req.params.availablefor});
         return res.status(200).json(items);
@@ -28,7 +29,7 @@ router.get("/fooditems/:availablefor", async (req, res)=>{
 
 
 //Sorting items based on request from Low to High or High to Low prices 
-router.get("/fooditems/:availablefor/:price", async (req, res)=>{
+router.get("/fooditems/:availablefor/:price", auth, async (req, res)=>{
     try{
         let items=await Item.find({availablefor:req.params.availablefor}).sort({price:req.params.price});
         return res.status(200).json(items);
