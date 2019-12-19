@@ -5,7 +5,7 @@ import axios from 'axios';
 export const fetchAllItems=()=>(dispatch)=>{
     dispatch(itemsLoading());
 
-    return axios.get('http://localhost:5000/fooditems')
+    return axios.get('http://localhost:5000/Home')
     .then(res=> {
         if (res.status) {
           return res.data;
@@ -31,7 +31,7 @@ export const getAllItems=(items)=>({
 export const fetchSpecificItems=(specificType)=>(dispatch)=>{
   dispatch(itemsLoading());
 
-  return axios.get(`http://localhost:5000/fooditems/${specificType}`)
+  return axios.get(`http://localhost:5000/Home/${specificType}`)
   .then(res=> {
       if (res.status) {
         return res.data;
@@ -57,7 +57,7 @@ export const getSpecificItems=(items)=>({
 export const fetchSortedItems=(specificType, sortType)=>(dispatch)=>{
   dispatch(itemsLoading());
 
-  return axios.get(`http://localhost:5000/fooditems/${specificType}/${sortType}`)
+  return axios.get(`http://localhost:5000/Home/${specificType}/${sortType}`)
   .then(res=> {
       if (res.status) {
         return res.data;

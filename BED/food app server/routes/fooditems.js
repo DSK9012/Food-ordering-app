@@ -4,10 +4,12 @@ const auth=require("../middleware/authToken");
 
 const Item=require("../models/foodItemModel");
 
-//Getting all food items
-router.get("/fooditems", async (req, res)=>{
+// @route GET /Home
+// @desc Get all food items
+// @access Public
+router.get("/Home", async (req, res)=>{
     try{
-        let items=await Item.find();
+        var items=await Item.find();
         return res.status(200).json(items);
         
     } catch(error){
@@ -16,10 +18,12 @@ router.get("/fooditems", async (req, res)=>{
     }
 });
 
-//Getting specific items
-router.get("/fooditems/:availablefor", auth, async (req, res)=>{
+// @route GET /Home/:availablefor
+// @desc Get specific items
+// @access Private
+router.get("/Home/:availablefor", auth, async (req, res)=>{
     try{
-        let items=await Item.find({availablefor:req.params.availablefor});
+        var items=await Item.find({availablefor:req.params.availablefor});
         return res.status(200).json(items);
     } catch(error){
         console.error(error.message);
@@ -28,10 +32,12 @@ router.get("/fooditems/:availablefor", auth, async (req, res)=>{
 });
 
 
-//Sorting items based on request from Low to High or High to Low prices 
-router.get("/fooditems/:availablefor/:price", auth, async (req, res)=>{
+// @route GET /Home/:availablefor/:sortType
+// @desc Get sorted items
+// @access Private
+router.get("/Home/:availablefor/:sortType", auth, async (req, res)=>{
     try{
-        let items=await Item.find({availablefor:req.params.availablefor}).sort({price:req.params.price});
+        var items=await Item.find({availablefor:req.params.availablefor}).sort({price:req.params.sortType});
         return res.status(200).json(items);
     } catch(error){
         return  res.status(500).send("Server error");

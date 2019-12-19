@@ -26,8 +26,8 @@ class Login extends React.Component{
                                     <Control.text   model=".username" 
                                                     id="username" 
                                                     name="username" 
-                                                    placeholder="User name "
-                                                    className="form-control mt-4 "
+                                                    placeholder="User name"
+                                                    className="form-control mt-4"
                                                     validators={{
                                                         required, 
                                                         minLength:minLength(5),
@@ -61,9 +61,9 @@ class Login extends React.Component{
                                                 validEmail:"Enter valid mail"
                                             }}  
                                             />          
-                                    <Control.text   model=".enterpassword" 
-                                                    id="enterpassword" 
-                                                    name="enterpassword" 
+                                    <Control.password   model=".password" 
+                                                    id="password" 
+                                                    name="password" 
                                                     placeholder="Password"
                                                     className="form-control mt-4"
                                                     validators={{
@@ -74,7 +74,7 @@ class Login extends React.Component{
                                                     }}
                                                 />
                                     <Errors className="text-danger"
-                                            model=".enterpassword"
+                                            model=".password"
                                             show="touched"
                                             messages={{
                                                 required:"Password is required",
@@ -83,9 +83,9 @@ class Login extends React.Component{
                                                 validPassword:"Doesn't meet password requirement"
                                             }}  
                                             />  
-                                    <Control.text   model=".confirmpassword" 
-                                                    id="confirmpassword" 
-                                                    name="confirmpassword" 
+                                    <Control.password   model=".cpassword" 
+                                                    id="cpassword" 
+                                                    name="cpassword" 
                                                     placeholder="Confirm password"
                                                     className="form-control mt-4 "
                                             />          

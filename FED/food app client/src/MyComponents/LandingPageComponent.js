@@ -64,12 +64,10 @@ function RenderItems(props){
                 <div className="col-12 col-md-6 col-lg-4 mt-3">
                     <div className="all_item_box"> 
                         <div className="row mt-2 mb-2 mr-0" >
-                            <div className="col-12 col-md-6 ">
-                                <Link to={`/home/${item.id}`} style={{color:'black'}}>
-                                    <Card key={item.id}>
-                                        <CardImg height="150px" width="100%" src={'http://localhost:3001/'+item.image} alt={item.itemname}/>
-                                    </Card>
-                                </Link>
+                            <div className="col-12 col-md-6 ">        
+                                <Card key={item.id}>
+                                    <CardImg height="150px" width="100%" src={'http://localhost:3001/'+item.image} alt={item.itemname}/>
+                                </Card>
                             </div>
                             <div className="col-12 col-md-6" style={{textAlign:'center', fontFamily:'arial', height:'100px', width:'100%'}}>
                                 <b>{item.itemname}</b>

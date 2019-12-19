@@ -58,7 +58,7 @@ class FoodItems extends React.Component{
          
     });
 */
-    const Items=this.props.items.items.map((fooditems)=>{
+    const Items=this.props.items.specificItems.map((fooditems)=>{
         
        
         var p=parseInt(( fooditems.availabletime.substring(0,2) + fooditems.availabletime.substring(3,5) ),10);
@@ -70,7 +70,7 @@ class FoodItems extends React.Component{
         {    return(
             <React.Fragment>
                 <div className="col-12 col-md-6 col-lg-4 mt-3">
-                    <div className="item_box" > 
+                    <div className="item_box" key={fooditems.id} > 
                         <RenderItem item={fooditems} getSelects={(item)=>this.selectedItems(item)}/>
                     </div>       
                 </div>
@@ -178,7 +178,7 @@ class  RenderItem extends React.Component{
             <div className="row mt-2 mb-2 mr-0" >
                 <div className="col-12 col-md-6 ">
                     <Link to={`/home/${this.props.item.id}`} style={{color:'black'}}>
-                        <Card key={this.props.item.id}>
+                        <Card >
                             <CardImg height="150px" width="100%" src={'http://localhost:3001/'+this.props.item.image} alt={this.props.item.itemname}/>
                         </Card>
                     </Link>

@@ -20,7 +20,7 @@ router.post("/user/register",
 async (req, res)=>{
     const errors=validationResult(req);
     if(!errors.isEmpty()){
-        res.status(400).json({errors:errors.array()});
+        return res.status(400).json({errors:errors.array()});
     }
     const {username, email, password, cpassword}=req.body;
 
@@ -76,13 +76,13 @@ async (req, res)=>{
 // @access Public
 router.post("/user/login",
 [
-    check("email", "Plesae enter a valid mail").isEmail(),
+    check("email", "Please enter a valid mail").isEmail(),
     check("password", "Password is required").not().isEmpty()
 ],
 async (req, res)=>{
     const errors=validationResult(req);
     if(!errors.isEmpty()){
-        res.status(400).json({errors:errors.array()});
+        return res.status(400).json({errors:errors.array()});
     }
     const {email, password}=req.body;
 

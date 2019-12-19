@@ -30,7 +30,7 @@ class NavBar extends React.Component{
             <React.Fragment>
                 <Navbar className="home_navbar" dark expand="md"  fixed="top">
             <div className="container">
-                 <NavbarBrand href='/'><i class="fa fa-cutlery fa-lg" style={{textShadow:'0px 0px 3px white',color:'rgb(204, 120, 10)'}} aria-hidden="true"></i> <b>Wipro Food Items</b> </NavbarBrand>    
+                 <NavbarBrand href='/home'><i class="fa fa-cutlery fa-lg" style={{textShadow:'0px 0px 3px white',color:'rgb(204, 120, 10)'}} aria-hidden="true"></i> <b>Wipro Food Items</b> </NavbarBrand>    
                 <NavbarToggler onClick={this.toggleNav} />
                 <Collapse isOpen={this.state.isNavOpen} navbar > 
                     <Nav navbar className="ml-auto">
