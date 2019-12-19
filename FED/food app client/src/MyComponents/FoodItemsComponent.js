@@ -39,26 +39,14 @@ class FoodItems extends React.Component{
                 selectedItems:this.state.selectedItems.push(items)
             }); 
         }
-
     }
-
   
     */
 
   render(){
 
-    /*const cart=this.state.selectedItems.map((item)=>{
-         
-         
-            return(
-                <React.Fragment>
-        <p>{item.id}x {item.itemname}</p>
-                </React.Fragment>
-            );
-         
-    });
-*/
-    const Items=this.props.items.specificItems.map((fooditems)=>{
+   
+    const Items=this.props.items.items.map((fooditems)=>{
         
        
         var p=parseInt(( fooditems.availabletime.substring(0,2) + fooditems.availabletime.substring(3,5) ),10);
@@ -70,7 +58,7 @@ class FoodItems extends React.Component{
         {    return(
             <React.Fragment>
                 <div className="col-12 col-md-6 col-lg-4 mt-3">
-                    <div className="item_box" key={fooditems.id} > 
+                    <div className="item_box" > 
                         <RenderItem item={fooditems} getSelects={(item)=>this.selectedItems(item)}/>
                     </div>       
                 </div>
@@ -178,7 +166,7 @@ class  RenderItem extends React.Component{
             <div className="row mt-2 mb-2 mr-0" >
                 <div className="col-12 col-md-6 ">
                     <Link to={`/home/${this.props.item.id}`} style={{color:'black'}}>
-                        <Card >
+                        <Card key={this.props.item.id}>
                             <CardImg height="150px" width="100%" src={'http://localhost:3001/'+this.props.item.image} alt={this.props.item.itemname}/>
                         </Card>
                     </Link>
