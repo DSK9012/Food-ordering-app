@@ -20,6 +20,7 @@ router.post("/user/register",
 async (req, res)=>{
     const errors=validationResult(req);
     if(!errors.isEmpty()){
+        console.error("dsk");
         return res.status(400).json({errors:errors.array()});
     }
     const {username, email, password, cpassword}=req.body;
@@ -61,7 +62,7 @@ async (req, res)=>{
           //signing our token
           jwt.sign(payload, "myjwtsecret", {expiresIn:360000}, (error, token)=>{
             if(error) throw error;
-            res.json({token});
+            res.json(token);
           })
 
     } catch(error){

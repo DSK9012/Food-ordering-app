@@ -7,7 +7,7 @@ const user=require("./routes/user");
 const app=express();
 
 //intializing express middleware
-app.use(express.json());
+app.use(express.json({extended:false}));
 
 //Routes
 app.use(fooditems);

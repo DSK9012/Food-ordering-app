@@ -9,7 +9,7 @@ const Item=require("../models/foodItemModel");
 // @access Public
 router.get("/Home", async (req, res)=>{
     try{
-        var items=await Item.find();
+        var items=await Item.find();throw error;
         return res.status(200).json(items);
         
     } catch(error){

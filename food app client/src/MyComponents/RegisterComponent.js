@@ -1,5 +1,5 @@
 import React from "react";
-import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Control, Form, Errors} from 'react-redux-form';
 import {Button} from 'reactstrap';
 import {Link} from 'react-router-dom';
 
@@ -13,6 +13,13 @@ const validPassword=(val)=>/^[A-Z]+[a-z]+[!@#$&%0-9]/i.test(val);
 
 class Login extends React.Component{
     
+     
+    handleSubmit(values){
+        this.props.registerUser(values.username, values.email, values.password, values.cpassword);
+        alert('Current State is: ' + JSON.stringify( values));
+        this.props.resetRegUserForm();
+    }
+    
     render(){
         return(
             <React.Fragment>
@@ -22,7 +29,7 @@ class Login extends React.Component{
                             <div className="col-12 col-md-4 offset-md-4 login_col">
                                 <Link to="/Welcome" style={{textDecoration:'none', color:'black'}}><h2 className="mb-0" style={{fontStyle:'italic'}}>Wipro food items</h2></Link>
                                 <small style={{color:'gray', fontFamily:'arial'}} className="ml-1">we understand your hungry</small>
-                                <LocalForm model="Register" onSubmit={(values) => this.handleSubmit(values)}>
+                                <Form model="User" onSubmit={(values) => this.handleSubmit(values)}>
                                     <Control.text   model=".username" 
                                                     id="username" 
                                                     name="username" 
@@ -43,9 +50,9 @@ class Login extends React.Component{
                                                 maxLength:"Must be less than 15 characters"
                                             }}  
                                             />  
-                                    <Control.text   model=".mail" 
-                                                    id="mail" 
-                                                    name="mail" 
+                                    <Control.text   model=".email" 
+                                                    id="email" 
+                                                    name="email" 
                                                     placeholder="Mail ID"
                                                     className="form-control mt-4"
                                                     validators={{
@@ -54,7 +61,7 @@ class Login extends React.Component{
                                                     }}
                                                 />
                                     <Errors className="text-danger"
-                                            model=".mail"
+                                            model=".email"
                                             show="touched"
                                             messages={{
                                                 required:"Email is required",
@@ -89,9 +96,9 @@ class Login extends React.Component{
                                                     placeholder="Confirm password"
                                                     className="form-control mt-4 "
                                             />          
-                                    <Button className="mt-4 mb-2" style={{width:'100%', backgroundColor:'teal', borderRadius:'1'}}>REGISTER</Button>
+                                    <Button type="submit" className="mt-4 mb-2" style={{width:'100%', backgroundColor:'teal', borderRadius:'1'}}>REGISTER</Button>
                                     <p style={{color:'gray'}}><small>Already have an account</small><br/>Click <Link to="/Welcome/login">here</Link> to Log in</p>
-                                </LocalForm>
+                                </Form>
                             </div>
                         </div>
                     </div>

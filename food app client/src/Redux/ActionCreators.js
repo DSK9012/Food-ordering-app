@@ -2,30 +2,25 @@ import * as ActionTypes from '../Redux/ActionTypes';
 import axios from 'axios';
 
 //fetching all items
-export const fetchAllItems=()=>(dispatch)=>{
+export const fetchAllItems=()=>async (dispatch)=>{
     dispatch(itemsLoading());
 
-    return axios.get('http://localhost:5000/Home')
-    .then(res=> {
-        if (res.status) {
-          return res.data;
-        } else {
-          var error = new Error('Error ' + res.status + ': ' + res.statusText);
-          throw error;
-        }
-      },
-      error => {
-            var errmess = new Error(error.message);
-            throw errmess;
-      }) 
-    .then(items => dispatch(getAllItems(items)))
-    .catch(error => dispatch(itemsLoadingFailed(error.message)));
+    try {
+      const res=await axios.get('http://localhost:5000/Home');
+      
+      dispatch({
+        type:ActionTypes.getAllItems,
+        payload:res.data
+      })
+    } catch (error) {
+      dispatch({
+        type:ActionTypes.itemsLoadingFailed,
+        payload:error.response.data
+      })
+    }
 }
 
-export const getAllItems=(items)=>({
-  type:ActionTypes.getAllItems,
-  payload:items
-});
+
 
 //fetching specific items
 export const fetchSpecificItems=(specificType)=>(dispatch)=>{
@@ -90,3 +85,31 @@ export const itemsLoadingFailed=(errMsg)=>({
     type:ActionTypes.itemsLoadingFailed,
     payload:errMsg
 }); 
+
+
+//register user
+export const registerUser=(username, email, password, cpassword)=> async dispatch=>{
+
+  const config={
+    headers:{
+      'Content-Type':'application/json'
+    }
+  }
+
+  const body=JSON.stringify({username, email, password, cpassword});
+
+  try {
+    const res= await axios.post('http://localhost:5000/user/register', body, config);
+    console.log(res);
+    dispatch({
+      type:ActionTypes.registerUser,
+      payload:res.data
+    });
+
+  } catch (error) {
+    console.log(error.response.data.errors);
+    dispatch({
+      type:ActionTypes.registerFail,
+    });
+  }
+};
