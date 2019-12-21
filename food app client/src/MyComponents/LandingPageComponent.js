@@ -11,11 +11,11 @@ class Landing extends React.Component{
             <React.Fragment>
                 <Navbar className="landing_navbar" dark expand="md"  fixed="top">
                     <div className="container">
-                        <NavbarBrand href='/'><i class="fa fa-cutlery fa-lg" style={{textShadow:'0px 0px 3px white',color:'rgb(204, 120, 10)'}} aria-hidden="true"></i> <b>Wipro Food Items</b></NavbarBrand>    
+                        <NavbarBrand href='/'><i className="fa fa-cutlery fa-lg" style={{textShadow:'0px 0px 3px white',color:'rgb(204, 120, 10)'}} aria-hidden="true"></i> <b>Wipro Food Items</b></NavbarBrand>    
                         <Nav navbar className="ml-auto">
                             <NavItem className="ml-3 mr-3">
                                 <NavLink to='/Welcome/login' className="nav-link" onClick={this.toggleNav} style={{color:'white'}}>
-                                    <i class="fa fa-user-circle fa-lg" aria-hidden="true" ></i> Log in
+                                    <i className="fa fa-user-circle fa-lg" aria-hidden="true" ></i> Log in
                                 </NavLink>
                             </NavItem>           
                         </Nav>        
@@ -62,7 +62,7 @@ function RenderItems(props){
         return(
             <React.Fragment>
                 <div className="col-12 col-md-6 col-lg-4 mt-3">
-                    <div className="all_item_box"> 
+                    <div className="all_item_box" > 
                         <div className="row mt-2 mb-2 mr-0" >
                             <div className="col-12 col-md-6 ">        
                                 <Card key={item.id}>

@@ -4,6 +4,20 @@ const jwt=require("jsonwebtoken");
 const router=express.Router();
 const {check, validationResult}=require("express-validator");
 const User=require("../models/userModel");
+const auth=require("../middleware/authToken");
+
+// @route GET /user
+// @desc Get and verify user on every req
+// @access Public
+router.get("/user", auth, async (req, res)=>{
+    try {
+        const user=await User.findById(req.user.id).select('-password');
+        res.json(user);  
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server error');
+    }
+})
 
 // @route POST /user/register
 // @desc Registering user
@@ -62,7 +76,7 @@ async (req, res)=>{
           //signing our token
           jwt.sign(payload, "myjwtsecret", {expiresIn:360000}, (error, token)=>{
             if(error) throw error;
-            res.json(token);
+            res.json({token});
           })
 
     } catch(error){

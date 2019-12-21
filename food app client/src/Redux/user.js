@@ -1,5 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 
+
 const initialState={
     token:localStorage.getItem("token"),
     isAuthenticated:false,
@@ -13,11 +14,17 @@ export const User=(state=initialState, action)=>{
 
     switch(type){
 
+        case ActionTypes.loadingUser:
+            return {...state, isAuthenticated:true, loading:false, userDetails:payload};
+
         case ActionTypes.registerUser:
-            localStorage.setItem('token', payload);
-            return {...state, isAuthenticated:true, loading:false, ...payload};
+        case ActionTypes.loginUser:
+            localStorage.setItem('token', payload.token);
+            return {...state, isAuthenticated:true, loading:false, token:payload.token};
         
         case ActionTypes.registerFail:
+        case ActionTypes.authError:
+        case ActionTypes.loginFail:
             localStorage.removeItem('token');
             return {...state, isAuthenticated:false, loading:false, token:null};
         
