@@ -1,8 +1,9 @@
 import React from "react";
 import { Control, Form, Errors} from 'react-redux-form';
 import {Button} from 'reactstrap';
-import {Link} from 'react-router-dom';
-
+import {Link, Redirect} from 'react-router-dom';
+import { connect } from "react-redux";
+import {registerUser} from '../Redux/ActionCreators';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -17,10 +18,13 @@ class Login extends React.Component{
     handleSubmit(values){
         this.props.registerUser(values.username, values.email, values.password, values.cpassword);
         alert('Current State is: ' + JSON.stringify( values));
-        this.props.resetRegUserForm();
+        //this.props.resetRegUserForm();
     }
     
     render(){
+        if(this.props.isAuthenticated){
+            return (<Redirect to="/home" />);
+        } else{
         return(
             <React.Fragment>
                 <div className="login_bg">
@@ -106,6 +110,13 @@ class Login extends React.Component{
             </React.Fragment>
         );
     }
+    }
 }
 
-export default Login;
+const mapStateToProps=state=>{
+    return {
+        isAuthenticated:state.users.isAuthenticated
+    };
+}
+
+export default connect(mapStateToProps, {registerUser})(Login);

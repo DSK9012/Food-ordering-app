@@ -5,7 +5,7 @@ import {createForms} from 'react-redux-form';
 import {regUserForm} from './forms';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
-
+import {composeWithDevTools} from 'redux-devtools-extension';
 
 export const ConfigureStore=()=>{
     const store=createStore(
@@ -16,7 +16,7 @@ export const ConfigureStore=()=>{
                 User:regUserForm
             })
         }),
-        applyMiddleware(thunk, logger)
+        composeWithDevTools(applyMiddleware(thunk, logger))
     );
         
 return store;

@@ -2,6 +2,8 @@ import React from 'react';
 import {Card, CardImg, Button, ButtonGroup} from "reactstrap";
 import {Link} from 'react-router-dom';
 import {Loading} from '../MyComponents/LoadingComponent';
+import { connect } from 'react-redux';
+import {fetchSpecificItems} from '../Redux/ActionCreators';
 
 class FoodItems extends React.Component{
 
@@ -43,10 +45,14 @@ class FoodItems extends React.Component{
   
     */
 
+    componentDidMount(){
+        this.props.fetchSpecificItems("Breakfast");
+    }
+
   render(){
 
    
-    const Items=this.props.items.items.map((fooditems)=>{
+    const Items=this.props.items.specificItems.map((fooditems)=>{
         
        
         var p=parseInt(( fooditems.availabletime.substring(0,2) + fooditems.availabletime.substring(3,5) ),10);
@@ -102,7 +108,7 @@ class FoodItems extends React.Component{
                         <div className="container mt-2">
                             <div className="row">
                                 <div className="col-8 offset-2 fast_time">
-                                    <strong >DSK</strong>
+                                    <strong>{this.props.items.specificItems.length>0?(this.props.items.specificItems[0].availablefor):''} items</strong>
                                 </div>
                             </div>
                             <div className="row">
@@ -188,4 +194,11 @@ class  RenderItem extends React.Component{
     }
 }
 
-export default FoodItems;
+const mapStateToProps=state=>{
+    return {
+        items:state.items
+    };
+}
+
+
+export default connect(mapStateToProps, {fetchSpecificItems})(FoodItems);

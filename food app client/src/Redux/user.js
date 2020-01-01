@@ -25,6 +25,7 @@ export const User=(state=initialState, action)=>{
         case ActionTypes.registerFail:
         case ActionTypes.authError:
         case ActionTypes.loginFail:
+        case ActionTypes.logoutUser:
             localStorage.removeItem('token');
             return {...state, isAuthenticated:false, loading:false, token:null};
         

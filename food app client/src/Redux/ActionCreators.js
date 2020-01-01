@@ -28,6 +28,9 @@ export const fetchAllItems=()=>async (dispatch)=>{
 
 //fetching specific items
 export const fetchSpecificItems=(specificType)=>async (dispatch)=>{
+  if(localStorage.token){
+    setAuthToken(localStorage.token);
+  }
   dispatch({
     type:ActionTypes.itemsLoading
   });
@@ -88,6 +91,7 @@ export const registerUser=(username, email, password, cpassword)=> async dispatc
       type:ActionTypes.registerUser,
       payload:response.data
     });
+
     dispatch(loadingUser());
   } catch (error) {
     console.log(error.response.data.errors);
@@ -115,17 +119,24 @@ export const loginUser=(email, password)=> async dispatch=>{
       type:ActionTypes.loginUser,
       payload:response.data
     });
+
     dispatch(loadingUser());
   } catch (error) {
-    console.log(error.response.data.errors);
+    
+    //console.log(error.response.data.errors);
     dispatch({
       type:ActionTypes.loginFail,
     });
   }
 };
 
+//Logout user
+export const logoutUser=()=>({
+  type:ActionTypes.logoutUser
+})
+
 //Loading user
-export const loadingUser=()=>async dispatch=>{
+export const loadingUser=()=>async (dispatch)=>{
   if(localStorage.token){
     setAuthToken(localStorage.token);
   }

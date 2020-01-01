@@ -13,3 +13,4 @@ export const loginUser="loginUser";
 export const loginFail="loginFail";
 export const loadingUser="loadingUser";
 export const authError="authError";
+export const logoutUser="logoutUser";

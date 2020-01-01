@@ -14,10 +14,8 @@ export const Item= (state = { isLoading:true, errMsg:null, items:[], specificIte
             return {...state, isLoading:false, errMsg:null, items:action.payload};   
         
         case ActionTypes.getSpecificItems:
-            return {...state, isLoading:false, errMsg:null, specificItems:action.payload}; 
-
         case ActionTypes.getSortedItems:
-            return {...state, isLoading:false, errMsg:null, items:action.payload};
+            return {...state, isLoading:false, errMsg:null, specificItems:action.payload}; 
             
         default:
             return state;

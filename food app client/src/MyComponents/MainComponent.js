@@ -3,40 +3,22 @@ import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
 import Cart from '../MyComponents/CartComponent';
 import Home from '../MyComponents/HomeComponent';
 import ItemInfo from './ItemInfoComponent';
-import {fetchAllItems, fetchSpecificItems, fetchSortedItems, registerUser, loginUser, loadingUser} from '../Redux/ActionCreators';
+import {loadingUser} from '../Redux/ActionCreators';
 import {connect} from 'react-redux';
-import { actions} from 'react-redux-form';
 import Landing from './LandingPageComponent';
 import Login from './LoginComponent';
 import Register from './RegisterComponent';
+import PrivateRoute from '../MyComponents/PrivateRoute';
 import setAuthToken from '../utils/setAuthToken';
 
 
-const mapStateToProps=( state )=>{
-    return{
-      items:state.items,
-      users:state.users
-    }
-  }
-  
-  const mapDispatchToProps =( dispatch )=> ({
-    fetchAllItems:()=>{dispatch(fetchAllItems())},
-    fetchSpecificItems:(specificType)=>{dispatch(fetchSpecificItems(specificType))},
-    fetchSortedItems:(specificType, sortType)=>{dispatch(fetchSortedItems(specificType, sortType))},
-    registerUser:(username, email, password, cpassword)=>{dispatch(registerUser(username, email, password, cpassword))},
-    resetRegUserForm:()=>{dispatch(actions.reset('User'))},
-    loadingUser:()=>{dispatch(loadingUser())},
-    loginUser:(email, password)=>{dispatch(loginUser(email, password))}
-});
-
 if(localStorage.token){
     setAuthToken(localStorage.token);
-}
+  }
 
 class Main extends React.Component{
 
     componentDidMount(){
-        this.props.fetchAllItems();
         this.props.loadingUser();
       }
 
@@ -52,10 +34,10 @@ class Main extends React.Component{
         return(
             <React.Fragment>
                 <Switch>
-                    <Route exact path='/Welcome' component={()=><Landing items={this.props.items}/>} />
-                    <Route exact path='/Welcome/register' component={()=><Register resetRegUserForm={this.props.resetRegUserForm} registerUser={this.props.registerUser} />} />
-                    <Route exact path='/Welcome/login' component={()=><Login loginUser={this.props.loginUser} resetRegUserForm={this.props.resetRegUserForm} />} />
-                    <Route exact path='/home' component={()=><Home  fetchSpecificItems={this.props.fetchSpecificItems} fetchSortedItems={this.props.fetchSortedItems} items={this.props.items} /> } />
+                    <Route exact path='/Welcome' component={Landing} />
+                    <Route exact path='/Welcome/register' component={Register} />
+                    <Route exact path='/Welcome/login' component={Login}/>
+                    <PrivateRoute exact path='/home' component={Home} />
                     <Route exact path='/home/:itemId' component={viewItem} />
                     <Route exact path='/home/Cart' component={Cart} />
                     <Redirect to='/Welcome' />
@@ -65,4 +47,12 @@ class Main extends React.Component{
     };
 }
 
-export default withRouter(connect( mapStateToProps, mapDispatchToProps)(Main)); 
+const mapStateToProps=( state )=>{
+    return {
+        items:state.items,
+        users:state.users
+    };
+  }
+  
+
+export default withRouter(connect( mapStateToProps, {loadingUser})(Main)); 

@@ -1,26 +1,22 @@
 import React from 'react';
-import {Navbar, Nav, NavItem, NavbarBrand, Button, Jumbotron, Card, CardImg} from 'reactstrap';
-import { NavLink, Link} from 'react-router-dom';
+import {Button, Jumbotron, Card, CardImg} from 'reactstrap';
+import {Link} from 'react-router-dom';
 import {Loading} from './LoadingComponent';
+import {connect} from 'react-redux';
+import {fetchAllItems} from '../Redux/ActionCreators';
+import NavBar from './NavbarComponent';
 
 class Landing extends React.Component{
 
-    render(){
+    componentDidMount(){
+        this.props.fetchAllItems();
+    }
     
+    render(){        
+
         return(
             <React.Fragment>
-                <Navbar className="landing_navbar" dark expand="md"  fixed="top">
-                    <div className="container">
-                        <NavbarBrand href='/'><i className="fa fa-cutlery fa-lg" style={{textShadow:'0px 0px 3px white',color:'rgb(204, 120, 10)'}} aria-hidden="true"></i> <b>Wipro Food Items</b></NavbarBrand>    
-                        <Nav navbar className="ml-auto">
-                            <NavItem className="ml-3 mr-3">
-                                <NavLink to='/Welcome/login' className="nav-link" onClick={this.toggleNav} style={{color:'white'}}>
-                                    <i className="fa fa-user-circle fa-lg" aria-hidden="true" ></i> Log in
-                                </NavLink>
-                            </NavItem>           
-                        </Nav>        
-                    </div>
-                </Navbar>
+                <NavBar />
                 <Jumbotron>
                     <div className="container mt-4">
                         <div className="row">
@@ -28,16 +24,18 @@ class Landing extends React.Component{
                                 <h1>Welcome Hunger...</h1>
                                 <p>We take inspiration from the World's best cuisines, and create a unique fusion experience. Our lipsmacking creations will tickle your culinary senses!</p>
                             </div>
-                            <div className="col-12 col-sm-6">
-                                <div style={{textAlign:'center', paddingTop:'50px' }}>
-                                    <Link to="/Welcome/Login" >
-                                        <Button outline  className=" jumb_button mr-1">Log in</Button>
-                                    </Link>
-                                    <Link to="/Welcome/Register">
-                                        <Button outline className="jumb_button">Register</Button>
-                                    </Link>
-                                </div>
-                            </div>
+                            { (!this.props.isAuthenticated) &&
+                                (<div className="col-12 col-sm-6">
+                                    <div style={{textAlign:'center', paddingTop:'50px' }}>
+                                        <Link to="/Welcome/Login" >
+                                            <Button outline  className=" jumb_button mr-1">Log in</Button>
+                                        </Link>
+                                        <Link to="/Welcome/Register">
+                                            <Button outline className="jumb_button">Register</Button>
+                                        </Link>
+                                    </div>
+                                </div>)
+                            }       
                         </div>
                     </div>
                 </Jumbotron>
@@ -112,5 +110,9 @@ function RenderItems(props){
     }
 }
 
+const mapStateToProps=state=>{
+    return {items:state.items,
+    isAuthenticated:state.users.isAuthenticated};
+}
 
-export default Landing;
+export default connect(mapStateToProps, {fetchAllItems})(Landing);

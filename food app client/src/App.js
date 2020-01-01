@@ -3,7 +3,6 @@ import {BrowserRouter} from 'react-router-dom';
 import Main from './MyComponents/MainComponent';
 import {Provider} from 'react-redux';
 import {ConfigureStore} from './Redux/ConfigureStore';
-import setAuthToken from './utils/setAuthToken';
 import './App.css';
 
 
