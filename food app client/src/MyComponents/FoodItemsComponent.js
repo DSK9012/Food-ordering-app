@@ -3,7 +3,7 @@ import {Card, CardImg, Button, ButtonGroup} from "reactstrap";
 import {Link} from 'react-router-dom';
 import {Loading} from '../MyComponents/LoadingComponent';
 import { connect } from 'react-redux';
-import {fetchSpecificItems} from '../Redux/ActionCreators';
+import {fetchSpecificItems, addItem} from '../Redux/ActionCreators';
 
 class FoodItems extends React.Component{
 
@@ -11,12 +11,6 @@ class FoodItems extends React.Component{
         super(props);
 
         this.state={
-            
-            selectedItems:[{
-                id:'0',
-                quantity:0,
-                itemname:''
-            }],
             time:new Date()
         }
 
@@ -65,7 +59,7 @@ class FoodItems extends React.Component{
             <React.Fragment>
                 <div className="col-12 col-md-6 col-lg-4 mt-3">
                     <div className="item_box" > 
-                        <RenderItem item={fooditems} getSelects={(item)=>this.selectedItems(item)}/>
+                        <RenderItem item={fooditems}  key={fooditems.id} addItem={this.props.addItem} items={this.props.items}/>
                     </div>       
                 </div>
             </React.Fragment>
@@ -132,47 +126,37 @@ class  RenderItem extends React.Component{
         super(props);
         
         this.state={
-            id:0,
-            quantity:0,
-            itemname:''
+            quantity:0
         }
-    
-        this.decItem=this.decItem.bind(this);
-        this.incItem=this.incItem.bind(this);
-      };
+    }
       
-      decItem(name){
+      decItem(){
           if(this.state.quantity!==0)
           {
           this.setState({
-              quantity:--this.state.quantity,
-              id:name.id,
-              itemname:name.itemname
-          });
-          
-           this.props.getSelects(this.state);
+              quantity:--this.state.quantity
+          });  
         }
+        this.props.addItem(this.props.item._id, this.props.item.itemname, this.props.item.type, this.props.item.price, this.props.items.cartItems.filter((item)=>item.itemId===this.props.item._id).length===1 ? --this.props.items.cartItems[this.props.items.cartItems.map(item=>item.itemId).indexOf(this.props.item._id)].quantity : 1);
       }
     
-      incItem(name){
+      incItem(){
         this.setState({
-            quantity:++this.state.quantity,
-            id:name.id,
-            itemname:name.itemname
+            quantity:++this.state.quantity
         });
-        this.props.getSelects(this.state);
-      }
+        this.props.addItem(this.props.item._id, this.props.item.itemname, this.props.item.type, this.props.item.price, this.props.items.cartItems.filter((item)=>item.itemId===this.props.item._id).length===1 ? ++this.props.items.cartItems[this.props.items.cartItems.map(item=>item.itemId).indexOf(this.props.item._id)].quantity : 1);
+    }
     
   
     render(){
 
-
+        
     return(
         <React.Fragment>
             <div className="row mt-2 mb-2 mr-0" >
                 <div className="col-12 col-md-6 ">
                     <Link to={`/home/${this.props.item.id}`} style={{color:'black'}}>
-                        <Card key={this.props.item.id}>
+                        <Card>
                             <CardImg height="150px" width="100%" src={'http://localhost:3001/'+this.props.item.image} alt={this.props.item.itemname}/>
                         </Card>
                     </Link>
@@ -180,11 +164,11 @@ class  RenderItem extends React.Component{
                 <div className="col-12 col-md-6" style={{textAlign:'center', fontFamily:'arial', height:'180px', width:'100%'}}>
                     <b>{this.props.item.itemname}</b>
                     <p className="mt-1 mb-1">&#8377;{this.props.item.price}</p>
-                    <small style={{color:'red',fontWeight:'bold', fontStyle:'italic'}} >{this.props.item.type}</small><br/>
+                    <small style={{color:'red',fontWeight:'bold', fontStyle:'italic'}} >{this.props.item.type}</small><br/> 
                     <ButtonGroup className="mt-2">
-                        <Button onClick={()=>this.decItem(this.props.item)} style={{borderRadius:'30px 0px 0px 30px'}} outline>-</Button>
-                        <Button outline>{this.state.quantity}</Button>
-                        <Button onClick={()=>this.incItem(this.props.item)} style={{borderRadius:'0px 30px 30px 0px'}} outline>+</Button>
+                        <Button onClick={()=>this.decItem()} style={{borderRadius:'30px 0px 0px 30px'}} outline>-</Button>
+                        <Button outline>{this.props.items.cartItems.filter((item)=>item.itemId===this.props.item._id).length===1 ? this.props.items.cartItems[this.props.items.cartItems.map(item=>item.itemId).indexOf(this.props.item._id)].quantity : 0}</Button>
+                        <Button onClick={()=>this.incItem()} style={{borderRadius:'0px 30px 30px 0px'}} outline>+</Button>
                     </ButtonGroup>
                 </div>
             </div>
@@ -201,4 +185,4 @@ const mapStateToProps=state=>{
 }
 
 
-export default connect(mapStateToProps, {fetchSpecificItems})(FoodItems);
+export default connect(mapStateToProps, {fetchSpecificItems, addItem})(FoodItems);

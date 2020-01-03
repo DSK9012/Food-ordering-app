@@ -153,3 +153,56 @@ export const loadingUser=()=>async (dispatch)=>{
     })   
   }
 }
+
+
+//Putting items in cart
+export const addItem=(itemId, itemname, type, price, quantity)=>async dispatch=>{
+  if(localStorage.token){
+    setAuthToken(localStorage.token);
+  }
+  const config={
+    headers:{
+      'Content-Type':'application/json'
+    }
+  }
+
+  const body=JSON.stringify({itemId, itemname, type, price, quantity});
+
+  try {
+    const response=await axios.post("http://localhost:5000/cart", body, config);
+
+    dispatch({
+      type:ActionTypes.addItem,
+      payload:response
+    })
+    dispatch(fetchCartItems());
+    dispatch(loadingUser());
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type:ActionTypes.authError
+    })
+  }  
+}
+
+//fetching all cart items
+export const fetchCartItems=()=>async (dispatch)=>{
+  dispatch({
+    type:ActionTypes.itemsLoading  
+  });
+
+  try {
+    const response=await axios.get('http://localhost:5000/cartItems');
+    
+    dispatch({
+      type:ActionTypes.getCartItems,
+      payload:response.data
+    })
+    dispatch(loadingUser());
+  } catch (error) {
+    dispatch({
+      type:ActionTypes.itemsLoadingFailed,
+      payload:error.message
+    })
+  }
+}

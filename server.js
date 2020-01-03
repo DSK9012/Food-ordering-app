@@ -3,6 +3,7 @@ const mongoose=require("mongoose");
 
 const fooditems=require("./routes/fooditems");
 const user=require("./routes/user");
+const cart=require("./routes/cart");
 
 const app=express();
 
@@ -12,6 +13,7 @@ app.use(express.json({extended:false}));
 //Routes
 app.use(fooditems);
 app.use(user);
+app.use(cart);
 
 
 

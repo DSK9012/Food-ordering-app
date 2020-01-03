@@ -44,8 +44,8 @@ class NavBar extends React.Component{
                     </NavLink>
                 </NavItem>
                 <NavItem className="mr-3" >
-                    <NavLink to='/Home/Cart' onClick={this.toggleNav} className="nav-link"  style={{color:'white'}} >
-                        <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i> Cart
+                    <NavLink to='/home/cart' onClick={this.toggleNav} className="nav-link"  style={{color:'white'}} >
+                        <i className="fa fa-shopping-cart fa-lg" aria-hidden="true"></i> Cart
                     </NavLink>
                 </NavItem>
                 <NavItem className="">
@@ -60,7 +60,7 @@ class NavBar extends React.Component{
             <React.Fragment>
                 <Navbar className="home_navbar" dark expand="md"  fixed="top">
                     <div className="container">
-                        <NavbarBrand  href='/welcome'><i class="fa fa-cutlery fa-lg" style={{textShadow:'0px 0px 3px white',color:'rgb(204, 120, 10)'}} aria-hidden="true"></i> <b>Wipro Food Items</b> </NavbarBrand>
+                        <NavbarBrand  href='/welcome'><i className="fa fa-cutlery fa-lg" style={{textShadow:'0px 0px 3px white',color:'rgb(204, 120, 10)'}} aria-hidden="true"></i> <b>Wipro Food Items</b> </NavbarBrand>
                         <NavbarToggler onClick={this.toggleNav} className="mr-0"/>    
                         <Collapse isOpen={this.state.isNavOpen} navbar > 
                             <Nav navbar className="ml-auto">

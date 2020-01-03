@@ -14,3 +14,7 @@ export const loginFail="loginFail";
 export const loadingUser="loadingUser";
 export const authError="authError";
 export const logoutUser="logoutUser";
+
+//Action types related to cart
+export const addItem="addItem";
+export const getCartItems="getCartItems";

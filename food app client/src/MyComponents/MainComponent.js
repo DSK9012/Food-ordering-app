@@ -37,9 +37,9 @@ class Main extends React.Component{
                     <Route exact path='/Welcome' component={Landing} />
                     <Route exact path='/Welcome/register' component={Register} />
                     <Route exact path='/Welcome/login' component={Login}/>
+                    <PrivateRoute exact path='/home/Cart' component={Cart} />
                     <PrivateRoute exact path='/home' component={Home} />
                     <Route exact path='/home/:itemId' component={viewItem} />
-                    <Route exact path='/home/Cart' component={Cart} />
                     <Redirect to='/Welcome' />
                 </Switch>        
             </React.Fragment>
