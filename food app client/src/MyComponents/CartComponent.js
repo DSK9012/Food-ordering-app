@@ -1,12 +1,19 @@
 import React from 'react';
 import {fetchCartItems, addItem} from '../Redux/ActionCreators';
 import { connect } from 'react-redux';
-import {Card, CardImg, Button, ButtonGroup} from 'reactstrap';
+import {Card, CardImg, Button, ButtonGroup, Navbar} from 'reactstrap';
 import {Loading} from './LoadingComponent';
 import NavBar from './NavbarComponent';
 
 class Cart extends React.Component{
 
+  constructor(props){
+    super(props);
+    
+    this.state={
+      cost:0
+    }
+  }
    
   decItem(id, itemname, type, price, quantity){
       if(quantity>0)
@@ -25,11 +32,16 @@ class Cart extends React.Component{
   
    
   render(){
-  
+    
+    var i=0;
     const cartItems=this.props.items.cartItems.map((item)=>{
+    
+    i=i+item.price*item.quantity;     
+      
+
       return (
-        <React.Fragment>
-            <div className="row" style={{ padding:'10px',borderBottom: '1px dotted black', textAlign:'center' }}>
+        <React.Fragment key={item._id} >
+            <div  className="row" style={{ padding:'10px',borderBottom: '1px dotted black', textAlign:'center' }}>
             <div className="col-12 col-md-4" style={{borderRight:'1px solid silver'}}>
               <Card>
                 <CardImg height="100px" src={item.image} alt={item.itemname} />
@@ -83,7 +95,11 @@ class Cart extends React.Component{
                       <NavBar />
                       <div className="container" style={{padding:'70px'}}>
                         {cartItems}
-                     
+                        <Navbar color="success" fixed="bottom" >
+                          <div className="container" style={{textAlign:'center'}}>
+                          <h2 align="center" style={{color:'white'}}>Total cost : {i}</h2>
+                          </div>
+                        </Navbar>
                       </div>
                     </React.Fragment>
                   );
@@ -92,7 +108,7 @@ class Cart extends React.Component{
                   return(
                     <React.Fragment>
                       <div className="conatiner">
-                        <h1>{this.props.items.cartItems}</h1>
+                        <h1 >{this.props.items.cartItems}</h1>
                       </div>
                     </React.Fragment>
                   );

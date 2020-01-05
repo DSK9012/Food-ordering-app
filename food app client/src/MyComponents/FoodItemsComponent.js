@@ -56,18 +56,19 @@ class FoodItems extends React.Component{
         var ct=this.state.time.getHours()*100+this.state.time.getMinutes(); 
         if( (ct>=p && ct<=q) || (ct>=r && ct<=s) )
         {    return(
-            <React.Fragment>
+            <React.Fragment key={fooditems._id}>
                 <div className="col-12 col-md-6 col-lg-4 mt-3">
-                    <div className="item_box" > 
-                        <RenderItem item={fooditems}  key={fooditems.id} addItem={this.props.addItem} items={this.props.items}/>
+                    <div className="item_box"  > 
+                        <RenderItem item={fooditems}  addItem={this.props.addItem} items={this.props.items}/>
                     </div>       
                 </div>
             </React.Fragment>
         );
         }
         else{
-            return(<div></div>);
+            return (<div></div>);
         }
+        
 
         
         
@@ -122,38 +123,23 @@ class FoodItems extends React.Component{
 
 class  RenderItem extends React.Component{
     
-    constructor(props){
-        super(props);
-        
-        this.state={
-            quantity:0
-        }
-    }
-      
       decItem(){
-          if(this.state.quantity!==0)
+          if(this.props.items.cartItems[this.props.items.cartItems.map(item=>item.itemId).indexOf(this.props.item._id)].quantity>0)
           {
-          this.setState({
-              quantity:--this.state.quantity
-          });  
+            this.props.addItem(this.props.item._id, this.props.item.itemname, this.props.item.type, this.props.item.price, this.props.items.cartItems.filter((item)=>item.itemId===this.props.item._id).length===1 ? --this.props.items.cartItems[this.props.items.cartItems.map(item=>item.itemId).indexOf(this.props.item._id)].quantity : 0);
         }
-        this.props.addItem(this.props.item._id, this.props.item.itemname, this.props.item.type, this.props.item.price, this.props.items.cartItems.filter((item)=>item.itemId===this.props.item._id).length===1 ? --this.props.items.cartItems[this.props.items.cartItems.map(item=>item.itemId).indexOf(this.props.item._id)].quantity : 1);
       }
     
       incItem(){
-        this.setState({
-            quantity:++this.state.quantity
-        });
         this.props.addItem(this.props.item._id, this.props.item.itemname, this.props.item.type, this.props.item.price, this.props.items.cartItems.filter((item)=>item.itemId===this.props.item._id).length===1 ? ++this.props.items.cartItems[this.props.items.cartItems.map(item=>item.itemId).indexOf(this.props.item._id)].quantity : 1);
     }
     
   
     render(){
 
-        
     return(
         <React.Fragment>
-            <div className="row mt-2 mb-2 mr-0" >
+            <div className="row mt-2  mr-0" >
                 <div className="col-12 col-md-6 ">
                     <Link to={`/home/${this.props.item.id}`} style={{color:'black'}}>
                         <Card>
@@ -161,7 +147,7 @@ class  RenderItem extends React.Component{
                         </Card>
                     </Link>
                 </div>
-                <div className="col-12 col-md-6" style={{textAlign:'center', fontFamily:'arial', height:'180px', width:'100%'}}>
+                <div className="col-12 col-md-6" style={{textAlign:'center', fontFamily:'arial', width:'100%'}}>
                     <b>{this.props.item.itemname}</b>
                     <p className="mt-1 mb-1">&#8377;{this.props.item.price}</p>
                     <small style={{color:'red',fontWeight:'bold', fontStyle:'italic'}} >{this.props.item.type}</small><br/> 
@@ -169,7 +155,8 @@ class  RenderItem extends React.Component{
                         <Button onClick={()=>this.decItem()} style={{borderRadius:'30px 0px 0px 30px'}} outline>-</Button>
                         <Button outline>{this.props.items.cartItems.filter((item)=>item.itemId===this.props.item._id).length===1 ? this.props.items.cartItems[this.props.items.cartItems.map(item=>item.itemId).indexOf(this.props.item._id)].quantity : 0}</Button>
                         <Button onClick={()=>this.incItem()} style={{borderRadius:'0px 30px 30px 0px'}} outline>+</Button>
-                    </ButtonGroup>
+                    </ButtonGroup><br/><br/>
+                    <div  align="left" style={{color:'red', width:'30px', height:'30px'}}><i className="fa fa-heart" aria-hidden="true"></i></div>
                 </div>
             </div>
            

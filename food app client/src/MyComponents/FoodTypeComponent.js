@@ -50,7 +50,7 @@ class FoodType extends React.Component{
                                 <input type="text" id="search" name="search"   value={this.state.value} placeholder="Search item by name...."  style={{width:'90%', outline:'none',border:'none', backgroundColor:'rgb(241, 238, 238)', color:'black',borderBottom:'1px solid gray'}} />
                             </div>
                             <div className="col-6 col-md-2 mt-3 " style={{textAlign:'center'}}>
-                                <i class="fa fa-calendar fa-lg " style={{color:'rgb(253, 197, 76)'}} aria-hidden="true"></i> {this.state.date.getDate()} {this.state.month[this.state.date.getMonth()]}, {this.state.date.getFullYear()}                       
+                                <i className="fa fa-calendar fa-lg " style={{color:'rgb(253, 197, 76)'}} aria-hidden="true"></i> {this.state.date.getDate()} {this.state.month[this.state.date.getMonth()]}, {this.state.date.getFullYear()}                       
                             </div>
                             <div className="col-6 col-md-2 mt-3" style={{textAlign:'center'}}>
                                 <span style={{cursor:'pointer'}} id="Popover" onClick={()=>this.togglePop()} ><i className="fa fa-filter fa-lg"  style={{color:'rgb(253, 197, 76)'}} aria-hidden="true"></i> Sort </span>    
