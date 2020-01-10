@@ -4,7 +4,7 @@ export const getSpecificItems="getSpecificItems";
 export const getSortedItems="getSortedItems";
 export const itemsLoading="itemsLoading";
 export const itemsLoadingFailed="itemsloadingFailed";
-
+export const getItem="getItem";
 
 //Action types related to user
 export const registerUser="registerUser";
@@ -18,3 +18,7 @@ export const logoutUser="logoutUser";
 //Action types related to cart
 export const addItem="addItem";
 export const getCartItems="getCartItems";
+
+//Action types realted to comments
+export const addComment="addComment";
+export const getComments="getComments";

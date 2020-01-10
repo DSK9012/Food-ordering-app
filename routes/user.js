@@ -17,7 +17,7 @@ router.get("/user", auth, async (req, res)=>{
         console.error(error.message);
         res.status(500).send('Server error');
     }
-})
+});
 
 // @route POST /user/register
 // @desc Registering user
@@ -40,51 +40,49 @@ async (req, res)=>{
     const {username, email, password, cpassword}=req.body;
 
     try{
-          //see user existed or not
-          var checkUser=await User.findOne({ email });
-          if(checkUser){
-            return res.status(400).json({errors:[{msg:"User already exists"}]});
-          }
+        //see user existed or not
+        var checkUser=await User.findOne({ email });
+        if(checkUser){
+          return res.status(400).json({ errors:[{msg:"User already exists"}] });
+        }
 
-          //checking re-entered password is same or not
-          if(password!==cpassword){
-            return res.status(400).json({ errors:[{msg:"Passwords doesn't match"}]});
-          }
+        //checking re-entered password is same or not
+        if(password!==cpassword){
+          return res.status(400).json({ errors:[{msg:"Passwords doesn't match"}] });
+        }
 
-          //creating user object
-          const user=new User({
-              username,
-              email,
-              password
-          });
+        //creating user object
+        const user=new User({
+            username,
+            email,
+            password
+        });
 
-          //hashing the password before saving it in DB
-          const salt=await bcrypt.genSalt(10);
-          user.password=await bcrypt.hash(password, salt);
+        //hashing the password before saving it in DB
+        const salt=await bcrypt.genSalt(10);
+        user.password=await bcrypt.hash(password, salt);
 
-          //saving user to DB
-          await user.save();
+        //saving user to DB
+        await user.save();
 
-          //creating payload
-          const payload={
-              user:{
-                  id:user.id,
-                  name:user.username
-              }
-          }
+        //creating payload
+        const payload={
+            user:{
+                id:user.id,
+                name:user.username
+            }
+        }
 
-          //signing our token
-          jwt.sign(payload, "myjwtsecret", {expiresIn:360000}, (error, token)=>{
-            if(error) throw error;
-            res.json({token});
-          })
-
+        //signing our token
+        jwt.sign(payload, "myjwtsecret", {expiresIn:3600}, (error, token)=>{
+          if(error) throw error;
+          res.json({token});
+        })      
     } catch(error){
         console.error(error.message);
         res.status(500).send("Server error");
     }
-}
-);
+});
 
 // @route POST /user/login
 // @desc  User login
@@ -102,37 +100,35 @@ async (req, res)=>{
     const {email, password}=req.body;
 
     try{
-          //see user existed or not
-          var checkUser=await User.findOne({ email });
-          if(!checkUser){
-            return res.status(400).json({errors:[{msg:"No user found with this mail"}]});
-          }
+         //see user existed or not
+         var checkUser=await User.findOne({ email });
+         if(!checkUser){
+           return res.status(400).json({errors:[{msg:"No user found with this mail"}]});
+         }
 
-          //checking password
-          const isMatched=await bcrypt.compare(password, checkUser.password);
-          if(!isMatched){
-              return res.status(400).json({errors:[{ msg:"Wrong password" }]})
-          }
+         //checking password
+         const isMatched=await bcrypt.compare(password, checkUser.password);
+         if(!isMatched){
+             return res.status(400).json({errors:[{ msg:"Wrong password" }]})
+         }
 
-          //creating payload
-          const payload={
-              user:{
-                  id:checkUser.id,
-                  name:checkUser.username
-              }
-          }
+         //creating payload
+         const payload={
+             user:{
+                 id:checkUser.id
+             }
+         }
 
-          //signing our token
-          jwt.sign(payload, "myjwtsecret", {expiresIn:360000}, (error, token)=>{
-            if(error) throw error;
-            res.json({token});
-          })
-
+         //signing our token
+         jwt.sign(payload, "myjwtsecret", {expiresIn:3600}, (error, token)=>{
+           if(error) throw error;
+           res.json({token});
+         })
+         
     } catch(error){
         console.error(error.message);
         res.status(500).send("Server error");
     }
-}
-);    
+});    
 
 module.exports=router;

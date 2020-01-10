@@ -1,16 +1,15 @@
 import React from "react";
-import { Control, Form} from 'react-redux-form';
-import {Button} from 'reactstrap';
-import {Link, Redirect} from 'react-router-dom';
-import {loginUser} from '../Redux/ActionCreators';
-import {connect} from 'react-redux';
+import { Control, Form } from 'react-redux-form';
+import { Button} from 'reactstrap';
+import { Link, Redirect } from 'react-router-dom';
+import { loginUser } from '../Redux/ActionCreators';
+import { connect } from 'react-redux';
 
 class Login extends React.Component{
 
 
     handleSubmit(values){
         this.props.loginUser(values.email, values.password);
-        alert(JSON.stringify(values));
         //this.props.resetRegUserForm();
     }
 
@@ -28,7 +27,7 @@ class Login extends React.Component{
                                 <div className="col-12 col-md-4 offset-md-4 login_col">
                                 <Link to="/Welcome" style={{textDecoration:'none', color:'black'}}><h3 className="mb-0" style={{fontStyle:'italic'}}>Wipro food items</h3></Link>
                                     <small style={{color:'gray', fontFamily:'arial'}} className="ml-1">we understand your hungry</small>
-                                    <Form model="User" onSubmit={(values) => this.handleSubmit(values)}>
+                                    <Form model="User" onSubmit={(values)=>this.handleSubmit(values)}>
                                         <Control.text   model=".email" 
                                                         id="email" 
                                                         name="email" 
@@ -54,14 +53,9 @@ class Login extends React.Component{
     }
 }
 
-const mapStateToProps=state=>{
-    return {
-        isAuthenticated:state.users.isAuthenticated
-    };
-}
-
-const mapDispatchToProps=dispatch=>({
-    loginUser:(email, password)=>{dispatch(loginUser(email, password))}
+const mapStateToProps=state=>({
+    isAuthenticated:state.users.isAuthenticated
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
+export default connect(mapStateToProps, { loginUser })(Login);

@@ -4,6 +4,7 @@ const mongoose=require("mongoose");
 const fooditems=require("./routes/fooditems");
 const user=require("./routes/user");
 const cart=require("./routes/cart");
+const comments=require("./routes/comments");
 
 const app=express();
 
@@ -14,7 +15,7 @@ app.use(express.json({extended:false}));
 app.use(fooditems);
 app.use(user);
 app.use(cart);
-
+app.use(comments);
 
 
 //Connecting to our MongoDB using mongoose
@@ -34,4 +35,4 @@ connectDB();
 
 //Running our Food App server
 const serverPort=5000;
-app.listen(serverPort,()=>{console.log(`Your food app server is running at port ${serverPort}`)});
+app.listen(serverPort, ()=>{console.log(`Your food app server is running at port ${serverPort}`)});

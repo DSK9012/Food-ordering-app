@@ -1,7 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 
 
-export const Item= (state = { isLoading:true, errMsg:null, items:[], specificItems:[], cartItems:[] }, action) => {
+export const Item= (state = { isLoading:false, errMsg:null, items:[], specificItems:[], cartItems:[], comments:[] }, action) => {
     switch(action.type)
     {
         case ActionTypes.itemsLoading:
@@ -11,6 +11,8 @@ export const Item= (state = { isLoading:true, errMsg:null, items:[], specificIte
             return {...state, isLoading:false, errMsg:action.payload};
 
         case ActionTypes.getAllItems:
+        case ActionTypes.getItem:
+        case ActionTypes.addComment:
             return {...state, isLoading:false, errMsg:null, items:action.payload};   
         
         case ActionTypes.getSpecificItems:
@@ -19,6 +21,13 @@ export const Item= (state = { isLoading:true, errMsg:null, items:[], specificIte
         
         case ActionTypes.getCartItems:
             return {...state, isLoading:false, errMsg:null, cartItems:action.payload};
+
+        case ActionTypes.getComments:
+            return {...state, isLoading:false, errMsg:null, comments:action.payload};
+
+        case ActionTypes.addItem:
+            return {...state, isLoading:false, errMsg:null};
+        
         default:
             return state;
     }

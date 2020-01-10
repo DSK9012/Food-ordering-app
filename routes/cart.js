@@ -7,39 +7,40 @@ const auth=require("../middleware/authToken");
 //@desc putting cart items
 //@access Private
 router.post("/cart", auth, async (req, res)=>{
-    const {itemId, itemname, type, price, quantity}=req.body;
+    const {itemId, itemname, image, type, price, quantity}=req.body;
 
     const cart={};
     cart.user=req.user.id;
     cart.items={};
     if(itemId) cart.items.itemId=itemId;
     if(itemname) cart.items.itemname=itemname;
+    if(image) cart.items.image=image;
     if(type) cart.items.type=type;
     if(price) cart.items.price=price;
     if(quantity) cart.items.quantity=quantity;
     
     try {
-            //check user existed or not
-            const user=await Cart.findOne({user:req.user.id});
+        //check user existed or not
+        const user=await Cart.findOne({user:req.user.id});
             
-            if(user){
+        if(user){
 
             //check item existed or not
             const getIndex=user.items.map(item=>item.itemId).indexOf(itemId);
-            if(getIndex!==-1){
-                
+            
+            if(quantity===0 && getIndex!==-1){
+                await user.items.splice(getIndex, 1);
+                await user.save();
+                return res.status(200).send("Deleted item");
+            } else if(getIndex!==-1){                
                 user.items[getIndex]=cart.items;
                 await user.save();    
-                return res.status(200).send("Item updated successfully");
-            
+                return res.status(200).send("Item updated successfully");        
             } else{
-
-            user.items.unshift(cart.items);
-            await user.save();
-            return res.status(200).send("Item added successfully");
-            
+                user.items.unshift(cart.items);
+                await user.save();
+                return res.status(200).send("Item added successfully");
             }
-        
         } else{
             
             //create
@@ -70,7 +71,7 @@ router.get("/cartItems", auth, async (req, res)=>{
         if(user && user.items.length>0){
             return res.status(200).json(user.items);
         }  else{
-            return res.status(200).send("No items in cart");
+            return res.status(200).json([]);
         } 
     } catch (error) {
         console.error(error.message);

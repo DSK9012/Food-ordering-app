@@ -44,5 +44,18 @@ router.get("/Home/:availablefor/:sortType", auth, async (req, res)=>{
     }
 });
 
+// @route GET /:itemId
+// @desc Get item by ID
+// @access Private
+router.get("/item/:itemId", auth, async (req, res)=>{
+    try{
+        var item=await Item.find({_id:req.params.itemId});
+        return res.status(200).json(item);
+    } catch(error){
+        console.error(error);
+        return  res.status(500).send("Server error");
+    }
+});
+
 
 module.exports=router;

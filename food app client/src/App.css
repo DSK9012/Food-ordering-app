@@ -111,3 +111,23 @@
 .cart_but:hover{
   background-color: teal;
 }
+
+.drop:hover{
+  background-color: silver;
+  text-decoration: none;
+}
+
+.add_but{
+  border-radius:30px;
+  border-color:teal;
+  width:70%;
+}
+
+.add_but:hover{
+  border-radius:  30px;
+  background-color:teal;
+  color: white;
+  border-color: teal;
+  width: 70%;
+  transition: 0.9s;
+}

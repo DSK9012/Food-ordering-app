@@ -1,9 +1,9 @@
 import React from 'react';
-import {Button, Jumbotron, Card, CardImg} from 'reactstrap';
-import {Link} from 'react-router-dom';
-import {Loading} from './LoadingComponent';
-import {connect} from 'react-redux';
-import {fetchAllItems} from '../Redux/ActionCreators';
+import { Button, Jumbotron, Card, CardImg } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import Loading from './LoadingComponent';
+import { connect } from 'react-redux';
+import { fetchAllItems } from '../Redux/ActionCreators';
 import NavBar from './NavbarComponent';
 
 class Landing extends React.Component{
@@ -46,8 +46,8 @@ class Landing extends React.Component{
                         </div>
                     </div>
                 </div>
-                <div className="container">
-                    <RenderItems items={this.props.items} /><br/><br/><br/>
+                <div className="container mb-3">
+                    <RenderItems items={this.props.items} /> 
                 </div>
             </React.Fragment>
         );
@@ -58,19 +58,19 @@ function RenderItems(props){
 
     const allItems=props.items.items.map((item)=>{
         return(
-            <React.Fragment>
+            <React.Fragment key={item._id}>
                 <div className="col-12 col-md-6 col-lg-4 mt-3">
                     <div className="all_item_box" > 
                         <div className="row mt-2 mb-2 mr-0" >
                             <div className="col-12 col-md-6 ">        
-                                <Card key={item.id}>
-                                    <CardImg height="150px" width="100%" src={'http://localhost:3001/'+item.image} alt={item.itemname}/>
+                                <Card >
+                                    <CardImg height="150px" width="100%" src={"/Images/"+item.image} alt={item.itemname}/>
                                 </Card>
                             </div>
                             <div className="col-12 col-md-6" style={{textAlign:'center', fontFamily:'arial', height:'100px', width:'100%'}}>
                                 <b>{item.itemname}</b>
-                                <p className="mt-1 mb-1">&#8377;{item.price}</p>
-                                <small style={{color:'red',fontWeight:'bold', fontStyle:'italic'}} >{item.type}</small><br/>                                
+                                <p className="mt-1 mb-1">&#8377;{ item.price }</p>
+                                <small style={{ color:'red', fontWeight:'bold', fontStyle:'italic' }} >{item.type}</small><br/>                                
                             </div>
                         </div>
                     </div>
@@ -79,24 +79,22 @@ function RenderItems(props){
         );
     })
 
-    if(props.items.itemsAreLoading){
+    if(props.items.isLoading){
         return(
             <div className="container">
-            <div className="row justify-content-center" style={{padding:'200px 0px 0px 0px'}}>
-                <div>
+                <div className="row" style={{ paddingTop:'100px', textAlign:'center' }}>
                     <Loading />
                 </div>
             </div>
-            </div>
         );
     }           
-    else if(props.items.itemsErrMsg){
+    else if(props.items.errMsg){
         return(
             <div className="container">
-            <div className="row">
-                <div>{this.props.items.itemsErrMsg}</div>
+            <div className="row justify-content-center" style={{ paddingTop:'100px' }}>
+                <h2 style={{color:'gray'}}>{props.items.errMsg}</h2>
             </div>
-            </div>
+        </div>
         );
     }
     else{
@@ -110,9 +108,10 @@ function RenderItems(props){
     }
 }
 
-const mapStateToProps=state=>{
-    return {items:state.items,
-    isAuthenticated:state.users.isAuthenticated};
-}
+const mapStateToProps=state=>({
+    items:state.items,
+    isAuthenticated:state.users.isAuthenticated
+});
 
-export default connect(mapStateToProps, {fetchAllItems})(Landing);
+
+export default connect(mapStateToProps, { fetchAllItems })(Landing);

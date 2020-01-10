@@ -1,5 +1,5 @@
 import React from 'react';
-import FoodType from '../MyComponents/FoodTypeComponent';
+import FoodType from './FoodTypeComponent';
 import FoodItems from './FoodItemsComponent';
 import NavBar from './NavbarComponent';
 
@@ -17,5 +17,6 @@ class Home extends React.Component{
         );
     }
 }
+
 
 export default Home;
