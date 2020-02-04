@@ -1,6 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 import setAuthToken from '../utils/setAuthToken';
 import axios from 'axios';
+import { actions } from 'react-redux-form';
 
 //fetching all items
 export const fetchAllItems=()=>async dispatch=>{
@@ -98,11 +99,16 @@ export const registerUser=(username, email, password, cpassword)=> async dispatc
       type:ActionTypes.registerUser,
       payload:response.data
     });
-
+    alert("User registered successfully...!");
+    dispatch(actions.reset('User'));
     dispatch(loadingUser());
 
   } catch (error) {
     console.log(error.message);
+    dispatch({
+      type:ActionTypes.setAlert,
+      payload:error.response.data.errors
+    });
     dispatch({
       type:ActionTypes.registerFail,
     });
@@ -127,11 +133,17 @@ export const loginUser=(email, password)=> async dispatch=>{
       type:ActionTypes.loginUser,
       payload:response.data
     });
-
+    dispatch(actions.reset('User'));
     dispatch(loadingUser());
 
   } catch (error) {
-    console.log(error.response);
+    console.log(error.message);
+    if(error.message!=="Network Error"){
+      dispatch({
+        type:ActionTypes.setAlert,
+        payload:error.response.data.errors
+      });
+    }
     dispatch({
       type:ActionTypes.loginFail
     });
@@ -254,11 +266,11 @@ export const getItem=(itemId)=>async dispatch=>{
   });
   try {
     
-    const response=await axios.get(`http://localhost:5000/item/${itemId}`);
+    //const response=await axios.get(`http://localhost:5000/item/${itemId}`);
 
     dispatch({
       type:ActionTypes.getItem,
-      payload:response.data
+      payload:itemId
     });
 
     dispatch(loadingUser());
