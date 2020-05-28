@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Card, CardImg, Button, ButtonGroup } from 'reactstrap';
 import Loading from './LoadingComponent';
 import NavBar from './NavbarComponent';
+const arrayMove = require('array-move');
 
 class Cart extends React.Component{
 

@@ -25,6 +25,6 @@ const itemSchema=new Schema({
 });
 
 //Creating DB model/collection with defined itemSchema with the specified name in 1st parameter
-const Item=mongoose.model("fooditems", itemSchema);
+const Item=mongoose.model("food items", itemSchema);
 
 module.exports=Item;
