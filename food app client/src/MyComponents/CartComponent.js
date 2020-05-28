@@ -8,7 +8,7 @@ const arrayMove = require('array-move');
 
 class Cart extends React.Component{
 
-  constructor(props){
+  constructor(props){ 
     super(props);
     
     this.state={
@@ -33,12 +33,11 @@ class Cart extends React.Component{
    
   render(){
     
-    var i=0;
+    var totalCost=0;
     const cartItems=this.props.items.cartItems.map((item)=>{
     
-      i=i+item.price*item.quantity;     
+      totalCost=totalCost+item.price*item.quantity;     
         
-
       return (
         <React.Fragment key={item._id} >
             <div className="row" style={{ padding:'10px', borderBottom: '1px dotted black', textAlign:'center' }}>
@@ -61,7 +60,7 @@ class Cart extends React.Component{
                   <Button onClick={()=>this.incItem(item.itemId, item.itemname, item.image,  item.type, item.price, item.quantity)} style={{borderRadius:'0px 30px 30px 0px'}} outline>+
                   </Button>
                 </ButtonGroup>
-                <h5>price : {item.quantity}x{item.price}={item.quantity*item.price}</h5>
+                <h5>price : {item.quantity}x{item.price}=&#8377;{item.quantity*item.price}</h5>
               </div>
             </div><br/>
         </React.Fragment>
@@ -71,19 +70,17 @@ class Cart extends React.Component{
     if(this.props.items.isLoading){
       return(
         <div className="container">
-        <div className="row justify-content-center" style={{padding:'200px 0px 0px 0px'}}>
-            <div>
-                <Loading />
-            </div>
-        </div>
+          <div className="row" style={{ textAlign:'center', paddingTop:'200px' }}>
+            <Loading />
+          </div>
         </div>
       );                
     }else if(this.props.items.errMsg){
       return(
         <div className="container">
-        <div className="row">
-            <div>{this.props.items.errMsg}</div>
-        </div>
+          <div className="row" style={{ textAlign:'center', paddingTop:'200px' }}>
+            <h2>{this.props.items.errMsg}</h2>
+          </div>
         </div>
       );                
     }else if(this.props.items.cartItems.length>0){
@@ -97,7 +94,7 @@ class Cart extends React.Component{
             <div className="row">
               <div className="col-12" style={{backgroundColor:'gray'}}>
                 <div className="container" style={{textAlign:'center'}}>
-                  <h2>Total cost : {i}</h2>
+                  <h2>Total price : &#8377;{totalCost}</h2>
                 </div>
                 </div>
             </div>
@@ -107,8 +104,11 @@ class Cart extends React.Component{
     }else{
       return(
         <React.Fragment>
-          <div className="conatiner">
-            <h1 >{this.props.items.cartItems}</h1>
+          <NavBar />
+          <div className="container">
+            <div className="row justify-content-center" style={{paddingTop:'300px', color:'gray' }}>
+              <h2><i className="fa fa-frown-o" aria-hidden="true"></i> No items added to cart, Plz add to place order...!</h2>
+            </div>
           </div>
         </React.Fragment>
       );

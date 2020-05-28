@@ -5,7 +5,8 @@ const initialState={
     token:localStorage.getItem("token"),
     isAuthenticated:false,
     loading:true,
-    userDetails:null
+    userDetails:null,
+    errors:[]
 }
 
 export const User=(state=initialState, action)=>{
@@ -14,13 +15,16 @@ export const User=(state=initialState, action)=>{
 
     switch(type){
 
+        case ActionTypes.setAlert:
+            return {...state, errors:payload};
+
         case ActionTypes.loadingUser:
             return {...state, isAuthenticated:true, loading:false, userDetails:payload};
 
         case ActionTypes.registerUser:
         case ActionTypes.loginUser:
             localStorage.setItem('token', payload.token);
-            return {...state, isAuthenticated:true, loading:false, token:payload.token};
+            return {...state, isAuthenticated:true, loading:false, token:payload.token, errors:[]};
         
         case ActionTypes.registerFail:
         case ActionTypes.authError:

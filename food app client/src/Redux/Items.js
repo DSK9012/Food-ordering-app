@@ -1,7 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 
 
-export const Item= (state = { isLoading:false, errMsg:null, items:[], specificItems:[], cartItems:[], comments:[] }, action) => {
+export const Item= (state = { isLoading:true, errMsg:null, items:[], specificItems:[], cartItems:[], comments:[] }, action) => {
     switch(action.type)
     {
         case ActionTypes.itemsLoading:
@@ -11,7 +11,6 @@ export const Item= (state = { isLoading:false, errMsg:null, items:[], specificIt
             return {...state, isLoading:false, errMsg:action.payload};
 
         case ActionTypes.getAllItems:
-        case ActionTypes.getItem:
         case ActionTypes.addComment:
             return {...state, isLoading:false, errMsg:null, items:action.payload};   
         
@@ -27,6 +26,9 @@ export const Item= (state = { isLoading:false, errMsg:null, items:[], specificIt
 
         case ActionTypes.addItem:
             return {...state, isLoading:false, errMsg:null};
+
+        case ActionTypes.getItem:
+            return {...state, isLoading:false, errMsg:null, items:state.specificItems.filter((item)=>item._id===action.payload) };
         
         default:
             return state;

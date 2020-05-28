@@ -32,7 +32,7 @@ class Main extends React.Component{
                     <Route exact path='/Welcome/login' component={Login}/>
                     <PrivateRoute exact path='/home/Cart' component={Cart} />
                     <PrivateRoute exact path='/home' component={Home} />
-                    <Route exact path='/home/:itemname' component={ItemInfo} />
+                    <PrivateRoute exact path='/home/:itemname' component={ItemInfo} />
                     <Redirect to='/Welcome' />
                 </Switch>        
             </React.Fragment>

@@ -34,7 +34,6 @@ router.post("/user/register",
 async (req, res)=>{
     const errors=validationResult(req);
     if(!errors.isEmpty()){
-        console.error("dsk");
         return res.status(400).json({errors:errors.array()});
     }
     const {username, email, password, cpassword}=req.body;
@@ -99,7 +98,7 @@ async (req, res)=>{
     }
     const {email, password}=req.body;
 
-    try{
+    try{ 
          //see user existed or not
          var checkUser=await User.findOne({ email });
          if(!checkUser){
@@ -123,10 +122,10 @@ async (req, res)=>{
          jwt.sign(payload, "myjwtsecret", {expiresIn:3600}, (error, token)=>{
            if(error) throw error;
            res.json({token});
-         })
+         });
          
     } catch(error){
-        console.error(error.message);
+        console.error("sai");
         res.status(500).send("Server error");
     }
 });    

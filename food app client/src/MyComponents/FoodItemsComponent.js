@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardImg, Button, ButtonGroup } from "reactstrap";
+import { Card, CardImg, Button, ButtonGroup, UncontrolledTooltip } from "reactstrap";
 import { Link } from 'react-router-dom';
 import Loading from './LoadingComponent';
 import { connect } from 'react-redux';
@@ -70,7 +70,7 @@ class FoodItems extends React.Component{
                                 <strong>{this.props.items.specificItems.length>0?(this.props.items.specificItems[0].availablefor):''} items</strong>
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row mb-5">
                             {Items} 
                         </div>
                     </div>   
@@ -128,22 +128,27 @@ class RenderItem extends React.Component{
                     <div className="col-12 col-md-6" style={{textAlign:'center', fontFamily:'arial', width:'100%'}}>
                         <b>{this.props.item.itemname}</b>
                         <p className="mt-1 mb-1">&#8377;{this.props.item.price}</p>
-                        <small style={{color:'red',fontWeight:'bold', fontStyle:'italic'}} >{this.props.item.type}</small><br/> 
+                        <small style={{ color:'red', fontWeight:'bold', fontStyle:'italic' }} >{this.props.item.type}</small><br/> 
 
                         {!(this.props.items.cartItems.filter((item)=>item.itemId===this.props.item._id).length===1) ?
                         (<Button className="add_but mt-2 mb-4" onClick={()=>this.incItem()} outline>ADD</Button>) :
                         (<ButtonGroup className="mt-2 mb-4" >
-                            <Button onClick={()=>this.decItem()} style={{borderRadius:'30px 0px 0px 30px', borderColor:'teal', color:'teal'}} outline>-</Button>
-                            <Button outline style={{borderColor:'teal', color:'teal'}}>{ this.props.items.cartItems.filter((item)=>item.itemId===this.props.item._id).length===1 ? this.props.items.cartItems[this.props.items.cartItems.map(item=>item.itemId).indexOf(this.props.item._id)].quantity : 0}</Button>
+                            <Button onClick={()=>this.decItem()} style={{borderRadius:'30px 0px 0px 30px', borderColor:'teal', color:'teal' }} outline>-</Button>
+                            <Button outline style={{ borderColor:'teal', color:'teal' }}>{ this.props.items.cartItems.filter((item)=>item.itemId===this.props.item._id).length===1 ? this.props.items.cartItems[this.props.items.cartItems.map(item=>item.itemId).indexOf(this.props.item._id)].quantity : 0}</Button>
                             <Button onClick={()=>this.incItem()} style={{borderRadius:'0px 30px 30px 0px', borderColor:'teal', color:'teal'}} outline>+</Button>
                         </ButtonGroup>)
                         }
                         
+                        <span id="tooltip">
                         {
                         this.state.isFav    ?
-                        (<span onClick={()=>this.addFav()} style={{position:'absolute', bottom:'0', right:'0', textAlign:'center', color:'teal', width:'30px', height:'30px'}}><i className="fa fa-heart" aria-hidden="true"></i></span>)   :
-                        (<span onClick={()=>this.addFav()} style={{position:'absolute', bottom:'0', right:'0', textAlign:'center', color:'black', width:'30px', height:'30px'}}><i className="fa fa-heart-o" aria-hidden="true"></i></span>)
+                        (<span onClick={()=>this.addFav()} style={{ cursor:'pointer', position:'absolute', bottom:'0', right:'0', textAlign:'center', color:'teal' }}><i className="fa fa-heart" aria-hidden="true"></i></span>)   :
+                        (<span onClick={()=>this.addFav()} style={{ cursor:'pointer', position:'absolute', bottom:'0', right:'0', textAlign:'center', color:'black' }}><i className="fa fa-heart-o"  aria-hidden="true"></i></span>)
                         }
+                        </span>
+                        <UncontrolledTooltip placement="right" target="tooltip">
+                            Add to favourites
+                        </UncontrolledTooltip>
 
                     </div>
                 </div>
