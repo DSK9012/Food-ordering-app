@@ -5,9 +5,9 @@
   "main": "server.js",
   "scripts": {
     "server": "nodemon server.js",
-    "client": "npm start --prefix \"food app client\"",
+    "client": "npm start --prefix client",
     "app": "concurrently \"npm run server\" \"npm run client\"",
-    "heoku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix \"food app client\" && npm run build --prefix \"food app client\""
+    "heoku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "DSK",
   "license": "ISC",
