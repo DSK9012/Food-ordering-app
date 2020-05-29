@@ -1,5 +1,5 @@
 const express=require("express");
-
+const path = require('path');
 const fooditems=require("./routes/fooditems");
 const user=require("./routes/user");
 const cart=require("./routes/cart");
@@ -20,7 +20,15 @@ app.use(user);
 app.use(cart);
 app.use(comments);
 
-
+// Serve static assets in production
+if(process.env.NODE_ENV==='production'){
+    // Set static folder
+    app.use(express.static('food app client/build'));
+    
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'food app client', 'build', 'index.html'));
+    });
+}
 
 //Running our Food App server
 const serverPort=process.env.PORT || 5000;

@@ -74,7 +74,7 @@ class NavBar extends React.Component{
                 <Navbar className="home_navbar" dark expand="md"  fixed="top">
                     <div className="container">
                         <NavbarBrand  href='/welcome'><i className="fa fa-cutlery fa-lg" style={{textShadow:'0px 0px 3px white',color:'rgb(204, 120, 10)'}} aria-hidden="true"></i> 
-                            <b> Wipro Food Items</b> 
+                            <b> Jungies Food Items</b> 
                         </NavbarBrand>
                         <NavbarToggler onClick={()=>this.toggleNav()} className="mr-0"/>    
                         <Collapse isOpen={this.state.isNavOpen} navbar > 

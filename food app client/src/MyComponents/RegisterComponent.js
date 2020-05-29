@@ -32,7 +32,7 @@ class Login extends React.Component{
                         <div className="container">
                             <div className="row m-1">
                                 <div className="col-12 col-md-4 offset-md-4 login_col">
-                                    <Link to="/Welcome" style={{ textDecoration:'none', color:'black' }}><h3 className="mb-0" style={{fontStyle:'italic' }}>Wipro food items</h3></Link>
+                                    <Link to="/Welcome" style={{ textDecoration:'none', color:'black' }}><h3 className="mb-0" style={{fontStyle:'italic' }}>Jungies food items</h3></Link>
                                     <small style={{ color:'gray', fontFamily:'arial' }} className="ml-1">we understand your hungry</small>
                                     <div className="mt-2">
                                         {alert}
