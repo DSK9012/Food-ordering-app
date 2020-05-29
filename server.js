@@ -7,9 +7,12 @@ const comments=require("./routes/comments");
 const connectDB = require("./config/db");
 
 const app=express();
+const cors = require('cors');
 
 // connect to DB
 connectDB();
+
+app.use(cors());
 
 //intializing express middleware
 app.use(express.json({extended:false}));

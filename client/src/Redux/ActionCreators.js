@@ -10,7 +10,7 @@ export const fetchAllItems=()=>async dispatch=>{
     });
 
     try {
-      const response=await axios.get("http://localhost:5000/Home");
+      const response=await axios.get("/Home");
       
       dispatch({
         type:ActionTypes.getAllItems,
@@ -40,7 +40,7 @@ export const fetchSpecificItems=(specificType)=>async dispatch=>{
   });
 
   try {
-    const response=await axios.get(`http://localhost:5000/Home/${specificType}`);
+    const response=await axios.get(`/Home/${specificType}`);
 
     dispatch({
       type:ActionTypes.getSpecificItems,
@@ -65,7 +65,7 @@ export const fetchSortedItems=(specificType, sortType)=>async dispatch=>{
   });
 
   try {
-    const response=await axios.get(`http://localhost:5000/Home/${specificType}/${sortType}`);
+    const response=await axios.get(`/Home/${specificType}/${sortType}`);
 
     dispatch({
       type:ActionTypes.getSortedItems,
@@ -93,7 +93,7 @@ export const registerUser=(username, email, password, cpassword)=> async dispatc
   const body=JSON.stringify({username, email, password, cpassword});
 
   try {
-    const response= await axios.post('http://localhost:5000/user/register', body, config);
+    const response= await axios.post('/user/register', body, config);
 
     dispatch({
       type:ActionTypes.registerUser,
@@ -127,7 +127,7 @@ export const loginUser=(email, password)=> async dispatch=>{
   const body=JSON.stringify({email, password});
 
   try {
-    const response= await axios.post("http://localhost:5000/user/login", body, config);
+    const response= await axios.post("/user/login", body, config);
 
     dispatch({
       type:ActionTypes.loginUser,
@@ -161,7 +161,7 @@ export const loadingUser=()=>async dispatch=>{
     setAuthToken(localStorage.token);
   }
   try {
-    const response=await axios.get("http://localhost:5000/user");
+    const response=await axios.get("/user");
 
     dispatch({
       type:ActionTypes.loadingUser,
@@ -189,7 +189,7 @@ export const addItem=(itemId, itemname, image, type, price, quantity)=>async dis
   const body=JSON.stringify({itemId, itemname, image, type, price, quantity});
 
   try {
-    const response=await axios.post("http://localhost:5000/cart", body, config);
+    const response=await axios.post("/cart", body, config);
 
     dispatch({
       type:ActionTypes.addItem,
@@ -211,7 +211,7 @@ export const fetchCartItems=()=>async (dispatch)=>{
    
 
   try {
-    const response=await axios.get('http://localhost:5000/cartItems');
+    const response=await axios.get('/cartItems');
     
     dispatch({
       type:ActionTypes.getCartItems,
@@ -239,7 +239,7 @@ export const addComment=(itemId, username, comment)=>async dispatch=>{
   const body=JSON.stringify({itemId, username, comment});
 
   try {
-    const response=await axios.post("http://localhost:5000/addComment", body, config);
+    const response=await axios.post("/addComment", body, config);
 
     dispatch({
       type:ActionTypes.addComment,
@@ -266,7 +266,7 @@ export const getItem=(itemId)=>async dispatch=>{
   });
   try {
     
-    //const response=await axios.get(`http://localhost:5000/item/${itemId}`);
+    //const response=await axios.get(`/item/${itemId}`);
 
     dispatch({
       type:ActionTypes.getItem,
