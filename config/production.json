@@ -1,0 +1,3 @@
+{
+    "mongoURI":"mongodb+srv://dsk:Venkat143@food-app-cluster-lp5zm.mongodb.net/food-app-db?retryWrites=true&w=majority"
+}
