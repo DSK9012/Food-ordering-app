@@ -27,6 +27,7 @@ class Main extends React.Component{
         return(
             <React.Fragment>
                 <Switch>
+                    <Route exact path='/' component={Landing} />
                     <Route exact path='/Welcome' component={Landing} />
                     <Route exact path='/Welcome/register' component={Register} />
                     <Route exact path='/Welcome/login' component={Login}/>
