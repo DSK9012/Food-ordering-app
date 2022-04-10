@@ -34,5 +34,5 @@ if(process.env.NODE_ENV==='production'){
 }
 
 //Running our Food App server
-const serverPort=process.env.PORT || 5000;
+const serverPort=process.env.PORT || 5001;
 app.listen(serverPort, ()=>{console.log(`Your food app server is running at port ${serverPort}`)});
