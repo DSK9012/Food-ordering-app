@@ -26,7 +26,7 @@ class FoodType extends React.Component{
                 <div className="second_nav">
                     <div className="container">
                         <div className="row">   
-                            <div className="col-12 col-md-4 mt-3 " style={{textAlign:'center'}}>
+                            <div className="col-12 col-md-8 mt-3 " style={{textAlign:'center'}}>
                                 <p onClick={()=>this.props.fetchSpecificItems("Breakfast")} className="nav-link fast_type"  >
                                     Breakfast{this.state.specificType}
                                 </p>         
@@ -36,9 +36,6 @@ class FoodType extends React.Component{
                                 <p  onClick={()=>this.props.fetchSpecificItems("Dinner")} className="nav-link fast_type" >
                                     Dinner  
                                 </p>
-                            </div>
-                            <div className="col-12 col-md-4 mt-3 " style={{textAlign:'center'}} >
-                                <input type="text" id="search" name="search"   value={this.state.value} placeholder="Search item by name...."  style={{width:'90%', outline:'none',border:'none', backgroundColor:'rgb(241, 238, 238)', color:'black',borderBottom:'1px solid gray'}} />
                             </div>
                             <div className="col-6 col-md-2 mt-3 " style={{textAlign:'center'}}>
                                 <i className="fa fa-calendar fa-lg " style={{color:'rgb(253, 197, 76)'}} aria-hidden="true"></i> {this.state.date.toDateString()}
